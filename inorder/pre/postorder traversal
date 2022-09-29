@@ -1,0 +1,142 @@
+#include <bits/stdc++.h>
+using namespace std;
+class node
+{   public:
+    int data;
+    node* l;
+    node* ri;
+    node(int d)
+    {
+        this->data=d;
+        this->l=nullptr;
+        this->ri=nullptr;
+    }
+};
+node* bt(node* r)
+{
+    int data;
+  cout<<"enter data"<<endl;
+    cin>>data;
+    r=new node(data);
+    if(data==-1)
+    {
+        return nullptr;
+    }
+   cout<<"enter data for the left of"<<data<<endl;
+    r->l=bt(r->l);
+     cout<<"enter data for the right of"<<data<<endl;
+    r->ri=bt(r->ri);
+    return r;
+}
+void lvlotrv(node* r)
+{
+    queue<node*>q;
+    q.push(r);
+    q.push(nullptr);
+    while(!q.empty())
+    {
+        node* t=q.front();
+        q.pop();
+        if(t==nullptr)
+        {
+            cout<<endl;
+            if(!q.empty())
+            {
+                q.push(nullptr);
+            }
+        }
+        else
+        {
+               cout<<t->data<<" ";
+        
+        if(t->l)
+        {
+            q.push(t->l);
+            
+        }
+        if(t->ri)
+        {
+            q.push(t->ri);
+        }
+            
+        }
+    }
+    
+    
+    
+    
+}
+void trv(node* r)
+{
+    queue<node*>q;
+    q.push(r);
+    while(!q.empty())
+    {
+        node* t=q.front();
+        q.pop();
+        cout<<t->data<<" ";
+        
+        if(t->l)
+        {
+            q.push(t->l);
+            
+        }
+        if(t->ri)
+        {
+            q.push(t->ri);
+        }
+    }
+    // 1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
+    
+    
+    
+}
+void inorder(node* r)
+{
+    if(r==nullptr)
+    return;
+    
+    inorder(r->l);
+    cout<<r->data<<" ";
+    inorder(r->ri);
+  
+}
+void preorder(node* r)
+{
+    if(r==nullptr)
+    return;
+    cout<<r->data<<" ";
+    preorder(r->l);
+    
+    preorder(r->ri);
+  
+}
+void postorder(node* r)
+{
+    if(r==nullptr)
+    return;
+    
+    postorder(r->l);
+    
+    postorder(r->ri);
+  cout<<r->data<<" ";
+}
+
+int main() {
+    // creating a pointer ofnode type to store the address of tree
+    node* r=nullptr;
+    r=bt(r);// fun to build tree
+    
+    trv(r);// fun for traversal the tree
+    cout<<endl;
+    lvlotrv(r);
+cout<<endl;
+    inorder(r);//lnr
+    cout<<endl;
+    
+    cout<<endl;
+    preorder(r);//nlr
+    cout<<endl;
+    postorder(r);//lrn
+    return 0;
+}
